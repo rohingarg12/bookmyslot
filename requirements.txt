@@ -4,5 +4,5 @@ pydantic
 passlib[bcrypt]
 python-jose
 python-multipart
-sqlite3
+
 # add any other packages you used
