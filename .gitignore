@@ -1,0 +1,15 @@
+# Ignore ALL node_modules folders
+node_modules/
+**/node_modules/
+
+# Ignore log files, environment files, etc.
+.env
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore uploads if you want (uncomment if needed)
+# backend/uploads/
+
