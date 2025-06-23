@@ -4,5 +4,7 @@ pydantic
 passlib[bcrypt]
 python-jose
 python-multipart
+pyjwt
+
 
 # add any other packages you used
