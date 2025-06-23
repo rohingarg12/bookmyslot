@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Header, UploadFile, File, Form
 from pydantic import BaseModel, Field
-import db
+from backend import db
+
 import jwt
 import os
 import shutil
