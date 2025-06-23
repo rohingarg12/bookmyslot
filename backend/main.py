@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles   # <-- Add this import
 
-import db
+from backend import db
+
 from auth import router as auth_router
 from event import router as events_router
 from booking import router as bookings_router
