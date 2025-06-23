@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Header
 from pydantic import BaseModel
-import db
+from backend import db
+
 import jwt
 
 SECRET_KEY = "your-secret-key"
