@@ -12,7 +12,8 @@ ALGORITHM = "HS256"
 
 router = APIRouter()
 
-UPLOAD_DIR = "uploads"
+# Save uploads inside backend/uploads (matches your main.py StaticFiles mount)
+UPLOAD_DIR = os.path.join(os.path.dirname(__file__), "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 class SlotIn(BaseModel):
@@ -35,8 +36,8 @@ def get_current_user(Authorization: str = Header(None)):
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
-# POST /events with image upload
-@router.post("/events")
+# POST /events (create new event, requires auth)
+@router.post("/")
 async def create_event(
     title: str = Form(...),
     description: str = Form(""),
@@ -78,7 +79,8 @@ async def create_event(
         "slots": slots_list
     }
 
-@router.get("/events")
+# GET /events (list all events)
+@router.get("/")
 def list_events():
     conn = db.get_connection()
     cur = conn.cursor()
@@ -93,7 +95,8 @@ def list_events():
     conn.close()
     return result
 
-@router.get("/events/{event_id}")
+# GET /events/{event_id}
+@router.get("/{event_id}")
 def get_event(event_id: int):
     conn = db.get_connection()
     cur = conn.cursor()
