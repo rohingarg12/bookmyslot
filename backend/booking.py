@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, Header, Form
+from fastapi import APIRouter, Depends, HTTPException, Header
+from pydantic import BaseModel
 from backend import db
 import jwt
 
@@ -6,6 +7,12 @@ SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
 
 router = APIRouter()
+
+# Define a Pydantic model for the expected JSON structure
+class BookingIn(BaseModel):
+    slotId: int
+    name: str
+    email: str
 
 def get_current_user(Authorization: str = Header(None)):
     if not Authorization or not Authorization.startswith("Bearer "):
@@ -20,11 +27,13 @@ def get_current_user(Authorization: str = Header(None)):
 @router.post("/events/{event_id}/bookings")
 def book_slot(
     event_id: int,
-    slotId: int = Form(...),
-    name: str = Form(...),
-    email: str = Form(...),
+    payload: BookingIn,  # <-- Accept JSON payload!
     user=Depends(get_current_user)
 ):
+    slotId = payload.slotId
+    name = payload.name
+    email = payload.email
+
     conn = db.get_connection()
     cur = conn.cursor()
     slot = cur.execute(
