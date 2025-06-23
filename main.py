@@ -31,11 +31,9 @@ app.mount(
 # Include your routers
 app.include_router(auth_router)
 app.include_router(events_router, prefix="/events")
-app.include_router(bookings_router, prefix="/bookings")
+app.include_router(bookings_router)  # <-- No prefix!
 app.include_router(users_router, prefix="/users")
 
-# If you need a simple root route
 @app.get("/")
 def read_root():
     return {"message": "API is running"}
-
