@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import jwt
-import db
+from backend import db
 
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
